@@ -24,7 +24,7 @@ export default function ImageUploader({ onImageLoad }: Props) {
       <div className="text-center mb-4">
         <h1 className="text-2xl font-bold mb-2">줄눈 시뮬레이터</h1>
         <p className="text-sm text-gray-400">
-          아파트 외벽 사진을 업로드하면
+          화장실/욕실 타일 사진을 업로드하면
           <br />
           줄눈 시공 후 모습을 미리 볼 수 있어요
         </p>

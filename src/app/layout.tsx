@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "줄눈 시뮬레이터",
-  description: "아파트 외벽 줄눈시공 미리보기 시뮬레이터",
+  description: "화장실/욕실 타일 줄눈시공 미리보기 시뮬레이터",
 };
 
 export const viewport: Viewport = {

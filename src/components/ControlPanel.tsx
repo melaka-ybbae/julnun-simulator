@@ -6,14 +6,14 @@ import { useState } from "react";
 interface Props {
   color: string;
   onColorChange: (color: string) => void;
-  thickness: number;
-  onThicknessChange: (v: number) => void;
-  sensitivity: number;
-  onSensitivityChange: (v: number) => void;
   compareMode: boolean;
   onCompareModeChange: (v: boolean) => void;
   onDownload: () => void;
   onReset: () => void;
+  onExpandAll: () => void;
+  onClearPoints: () => void;
+  hasPoints: boolean;
+  hasMask: boolean;
 }
 
 const PRESETS = [
@@ -28,14 +28,14 @@ const PRESETS = [
 export default function ControlPanel({
   color,
   onColorChange,
-  thickness,
-  onThicknessChange,
-  sensitivity,
-  onSensitivityChange,
   compareMode,
   onCompareModeChange,
   onDownload,
   onReset,
+  onExpandAll,
+  onClearPoints,
+  hasPoints,
+  hasMask,
 }: Props) {
   const [expanded, setExpanded] = useState(true);
 
@@ -50,7 +50,8 @@ export default function ControlPanel({
       </button>
 
       {expanded && (
-        <div className="px-5 pb-5 space-y-5">
+        <div className="px-5 pb-5 space-y-4">
+          {/* Color presets */}
           <div>
             <label className="text-xs text-gray-400 mb-2 block">줄눈 색상</label>
             <div className="flex gap-2 flex-wrap">
@@ -88,38 +89,33 @@ export default function ControlPanel({
             </div>
           </div>
 
-          <div>
-            <div className="flex justify-between mb-1">
-              <label className="text-xs text-gray-400">줄눈 두께</label>
-              <span className="text-xs text-gray-500">{thickness}</span>
-            </div>
-            <input
-              type="range"
-              min={0}
-              max={5}
-              step={1}
-              value={thickness}
-              onChange={(e) => onThicknessChange(Number(e.target.value))}
-              className="w-full"
-            />
+          {/* Grout selection buttons */}
+          <div className="flex gap-2">
+            <button
+              onClick={onExpandAll}
+              disabled={!hasMask}
+              className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                hasMask
+                  ? "bg-emerald-600 text-white active:bg-emerald-700"
+                  : "bg-[#1e1e1e] text-gray-500 border border-[#333]"
+              }`}
+            >
+              전체 줄눈 선택
+            </button>
+            <button
+              onClick={onClearPoints}
+              disabled={!hasPoints}
+              className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                hasPoints
+                  ? "bg-[#1e1e1e] text-gray-300 border border-[#333] active:bg-[#2a2a2a]"
+                  : "bg-[#1e1e1e] text-gray-500 border border-[#333]"
+              }`}
+            >
+              선택 초기화
+            </button>
           </div>
 
-          <div>
-            <div className="flex justify-between mb-1">
-              <label className="text-xs text-gray-400">엣지 감도</label>
-              <span className="text-xs text-gray-500">{sensitivity}%</span>
-            </div>
-            <input
-              type="range"
-              min={10}
-              max={90}
-              step={5}
-              value={sensitivity}
-              onChange={(e) => onSensitivityChange(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-
+          {/* Action buttons */}
           <div className="flex gap-2">
             <button
               onClick={() => onCompareModeChange(!compareMode)}
