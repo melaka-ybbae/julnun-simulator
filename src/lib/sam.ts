@@ -44,11 +44,11 @@ export async function segmentAtPoints(
 
   const input_points = new Tensor("float32", new Float32Array(
     points.flatMap((p) => [p.x, p.y])
-  ), [1, points.length, 2]);
+  ), [1, 1, points.length, 2]);
 
   const input_labels = new Tensor("int64", new BigInt64Array(
     points.map((p) => BigInt(p.label))
-  ), [1, points.length]);
+  ), [1, 1, points.length]);
 
   const outputs = await (modelInstance as any)({
     ...currentEmbeddings,
